@@ -1,0 +1,96 @@
+SpringBoot Application Demo Notes
+
+Technology stack for web backend application
+
+Build tool (Dependency management tool): Maven
+Java Web Framework: SpringBoot
+Database server: MySQL
+Database type: SQL database (relational database)
+ORM (Object Relational Mapping) tool: Hibernate (to map the model objects from Java to database tables)
+Lombok = Java library that can generate known patterns of code for us, allowing us to reduce the boilerplate code (cod redundant)
+Postman = a tool for making requests to server
+
+Notes:
+	-when connecting the Java application with the database server, we can decide if we want to create the database
+	from scratch based on the entities defined or we want to use an existing database
+
+HTTP Verbs:
+    -GET = retrieve data
+    -POST = submit an entry for creation
+    -PUT = update/replace existing resource
+    -DELETE = delete resource
+    -PATCH = apply partial modification to an existing resource
+
+CRUD database operations: Create, Read, Update, Delete
+
+Client and server communication:
+    -can be done with requests made from the client to the server
+    -examples of clients: web application(from browser), mobile application, desktop application, tools like Postman
+    -server: an application who is running all the time and accepts requests from clients
+    -HTTP: communication protocol between client and server, works as a request-response protocol
+    -HTTP communication example: a client sends HTTP requests to the server then the server returns a response
+    to the client
+
+HTTP Status codes:
+    -Status codes are issued by a server in response to a client request made to the server
+    -The first digit of the status code specifies one of the five standard classes of responses
+        -1xx - informational response
+        -2xx - successful
+        -3xx - redirection
+        -4xx - client error
+        -5xx - server error
+
+spring.jpa.hibernate.ddl-auto Options:
+    -create - first drops existing tables and then creates new tables (data is lost)
+    -update - the object model created from code mappings (from Entity classes) is compared with the existing schema
+            and then the schema is updated based on the code. It never deletes the existing tables or columns even if
+            they are no longer required by the application
+    -create-drop - similar to create but, hibernate will drop (delete) the database after all operations are completed
+                 - this option is used for unit testing
+    -validate - hibernate only validates weather the tables and columns exist, otherwise it throws an exception
+    -none - this value turns off the DDL (Data Description Language - a syntax for creating and modifying database
+            structure) Generation
+
+    OBS : The most used value is update!
+
+DTO - Data Transfer Object:
+        -is an object that is used to encapsulate data and send it from one subsystem to another
+        -we can have multiple DTOs for the same model object (entity) because on different requests we want to
+        provide access to a different view of the model object
+            -an example: we want to have the password of a user on the model object used at creation (because
+            we need to set it) but we don't want to expose it when we perform GET operation
+
+
+@PathVariable = an annotation that can be used to handle template variable in the request, and set them as
+                method parameters
+                -this is used when we need to send parameters in request (usually with GET and DELETE HTTP requests)
+                -we can have multiple @PathVariable variables to send multiple parameters
+
+HTTP request structure:
+    -URL
+    -Method(GET, POST, DELETE, etc.)
+    -Headers
+    -Body
+
+Implementation options for POST requests:
+    -with @RequestBody - CORRECT
+    -with @PathVariable variables - WRONG - because it exposes sensitive information
+    -with @RequestParam - WRONG - because it exposes sensitive information
+
+BUILDER PATTERN:
+    -is a creational pattern used to construct complex objects step by step
+    -it can be implemented by scratch by us, by creating a dedicated builder class for each class
+    (ClientBuilder for Client, BookBuilder for Book)
+    -the annotation @Builder from Lombok provides this functionality(no need to implement it)
+
+DIFFERENCES BETWEEN PUT AND PATCH:
+    -both request types are used to update an existing object
+    -PUT:
+        -we need to send the entire object to be updated, this needs to contain both the fields that changed and
+         the fields that remained the same
+        -it overrides the old fields with the new fields
+        -if the value for a field is not send, it will update the old field with null
+
+    -PATCH:
+        -it's used to update only parts of an existing object
+        -we send on the PATCH request only the fields to be updated
