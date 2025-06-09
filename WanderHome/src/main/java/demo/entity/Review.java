@@ -3,7 +3,8 @@ package demo.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 @Entity
 @Table(name="reviews")
@@ -13,11 +14,17 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class Review {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
-    private int reviewId;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "real_estate_id")
+    RealEstate realEstate;
 
     @Column(name = "rating", nullable = false)
     private int rating;
@@ -25,9 +32,6 @@ public class Review {
     @Column(name = "comment", length = 1000)
     private String comment;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
-
-    //TODO: FOREIGN KEY client_id & property_id + ?? UPDATED_AT , DELETED_AT ??
-
+    @Column(name="date_added")
+    private LocalDate dateAdded;
 }

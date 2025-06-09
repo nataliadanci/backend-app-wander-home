@@ -9,10 +9,10 @@ import java.io.Serializable;
 @Builder
 @Setter
 @Getter
-public class PropertyDTO implements Serializable {
+public class RealEstateDTO implements Serializable {
 
-    @JsonProperty("property_id")
-    private int propertyId;
+    @JsonProperty("id")
+    private int id;
 
     @JsonProperty("title")
     private String title;
@@ -23,8 +23,15 @@ public class PropertyDTO implements Serializable {
     @JsonProperty("location")
     private String location;
 
-    @JsonProperty("property_type")
-    private String propertyType;
+    @JsonProperty("real_estate_type")
+    private String realEstateType;
 
-    //TODO: client_id ? created_at ? uploaded_at?
+    @JsonProperty("status")
+    private String status;
+
+    @JsonProperty("image_path")
+    private String image;
+
+    @JsonProperty("owner_id")
+    private int owner_id;
 }

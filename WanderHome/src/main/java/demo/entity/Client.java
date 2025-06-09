@@ -2,8 +2,7 @@ package demo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name="clients")
@@ -15,32 +14,54 @@ import java.time.LocalDateTime;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "client_id")
-    private int clientId;
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private int id;
 
-    @Column(name = "username", nullable = false, length = 255)
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "password", nullable = false, length = 255)
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "email", nullable = false, length = 255)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "first_name", nullable = false, length = 255)
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false, length = 255)
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "phone", length = 20)
+    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "description")
+    private String description;
 
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    @Column(name = "image_path")
+    private String image;
+
+    @Column(name = "profile_status")
+    private String profileStatus;
+
+    @Column(name = "role")
+    private String role;
+
+    @OneToMany(mappedBy = "client")
+    Set<Review> reviewsWritten;
+
+    @ManyToMany
+    @JoinTable(
+            name = "real_estate_favorites",
+            joinColumns = @JoinColumn(name = "interested_client_id"),
+            inverseJoinColumns = @JoinColumn(name = "real_estate_id"))
+    private Set<RealEstate> favoriteRealEstates;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "owner_id", updatable = false)
+    private Set<RealEstate> realEstatesOwned;
+
+    @OneToMany(mappedBy = "rentalGuest")
+    Set<Rental> rentals;
 
 }

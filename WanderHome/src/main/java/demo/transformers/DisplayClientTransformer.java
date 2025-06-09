@@ -12,12 +12,16 @@ public class DisplayClientTransformer implements Transformer<Client, DisplayClie
 
         DisplayClientDTO clientDTO = new DisplayClientDTO();
 
-        clientDTO.setClientId(client.getClientId());
+        clientDTO.setId(client.getId());
         clientDTO.setUsername(client.getUsername());
         clientDTO.setEmail(client.getEmail());
         clientDTO.setFirstName(client.getFirstName());
         clientDTO.setLastName(client.getLastName());
         clientDTO.setPhone(client.getPhone());
+        clientDTO.setDescription(client.getDescription());
+        clientDTO.setImage(client.getImage());
+        clientDTO.setProfileStatus(client.getProfileStatus());
+        clientDTO.setRole(client.getRole());
 
         return clientDTO;
     }
@@ -27,12 +31,15 @@ public class DisplayClientTransformer implements Transformer<Client, DisplayClie
 
         Client clientEntity = new Client();
 
-        clientEntity.setClientId(displayClientDTO.getClientId());
+        clientEntity.setId(displayClientDTO.getId());
         clientEntity.setUsername(displayClientDTO.getUsername());
         clientEntity.setEmail(displayClientDTO.getEmail());
         clientEntity.setFirstName(displayClientDTO.getFirstName());
         clientEntity.setLastName(displayClientDTO.getLastName());
         clientEntity.setPhone(displayClientDTO.getPhone());
+        clientEntity.setDescription(displayClientDTO.getDescription());
+        clientEntity.setImage(displayClientDTO.getImage());
+        clientEntity.setRole(displayClientDTO.getRole());
 
         return clientEntity;
     }

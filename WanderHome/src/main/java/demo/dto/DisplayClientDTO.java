@@ -1,7 +1,6 @@
 package demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,10 +8,9 @@ import java.io.Serializable;
 
 @Setter
 @Getter
-//this is a data transfer object
 public class DisplayClientDTO implements Serializable {
-    @JsonProperty("client_id")
-    private int clientId;
+    @JsonProperty("id")
+    private int id;
 
     @JsonProperty("username")
     private String username;
@@ -29,8 +27,15 @@ public class DisplayClientDTO implements Serializable {
     @JsonProperty("phone")
     private String phone;
 
-    //we are not including password in this DTO because we will use this DTO to get and display a client
-    // or a list of clients and the password is confidential
-  /*@JsonProperty("password")
-    private String password;*/
+    @JsonProperty("description")
+    private String description;
+
+    @JsonProperty("image_path")
+    private String image;
+
+    @JsonProperty("profile_status")
+    private String profileStatus;
+
+    @JsonProperty("role")
+    private String role;
 }

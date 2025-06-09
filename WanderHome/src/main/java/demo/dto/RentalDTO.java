@@ -4,27 +4,31 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Setter
 @Getter
-public class BookingDTO implements Serializable {
+public class RentalDTO implements Serializable {
 
-    @JsonProperty("booking_id")
-    private int bookingId;
+    @JsonProperty("id")
+    private int id;
 
     @JsonProperty("start_date")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @JsonProperty("end_date")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @JsonProperty("status")
     private String status;
 
-    //TODO: FOREIGN KEYS CLIENT_ID & PROPERTY_ID
-    //TODO: created_at ? updated_at ?
+    @JsonProperty("guest_id")
+    private int guestId;
+
+    @JsonProperty("real_estate_id")
+    private int realEstateId;
+
 }

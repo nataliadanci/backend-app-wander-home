@@ -1,21 +1,28 @@
 package demo.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.github.fge.jsonpatch.JsonPatch;
-import com.github.fge.jsonpatch.JsonPatchException;
-import demo.dto.CreateClientDTO;
-import demo.dto.DisplayClientDTO;
-import demo.errorhandling.ClientNotFoundException;
-import demo.errorhandling.DuplicatedClientUsernameException;
+import demo.dto.*;
+import demo.errorhandling.*;
+
+import java.util.Set;
 
 public interface ClientService {
+    CreateClientDTO saveClient(CreateClientDTO createClientDTO);
     Iterable<DisplayClientDTO> findAllClients();
     DisplayClientDTO findClientByID(Integer id) throws ClientNotFoundException;
-    DisplayClientDTO findClientByFirstName(String name) throws ClientNotFoundException;
-    DisplayClientDTO deleteClientById(Integer id) throws ClientNotFoundException;
-    DisplayClientDTO deleteClientByFirstName(String name) throws ClientNotFoundException;
-    CreateClientDTO saveClient(CreateClientDTO createClientDTO) throws DuplicatedClientUsernameException;
-    CreateClientDTO updateClient(Integer id, CreateClientDTO createClientDTO) throws ClientNotFoundException, DuplicatedClientUsernameException;
-    DisplayClientDTO patchClient(Integer id, JsonPatch jsonPatch) throws ClientNotFoundException, JsonPatchException, JsonProcessingException;
+    DisplayClientDTO findClientByEmail(String email) throws ClientNotFoundException;
+    DisplayClientDTO login(String email, String password) throws ClientAccountNotFoundException, InvalidLoginPasswordException, InactiveClientException;
+    ReviewDTO addReview(ReviewDTO reviewDTO) throws ClientNotFoundException, RealEstateNotFoundException;
+    Set<ReviewDTO> getReviewsByClient(Integer clientId) throws ClientNotFoundException;
+    DisplayClientDTO addRealEstateToFavorites(Integer clientId, Integer realEstateId) throws ClientNotFoundException, RealEstateNotFoundException;
+    DisplayClientDTO removeRealEstateFromFavorites(Integer clientId, Integer realEstateId) throws ClientNotFoundException, RealEstateNotFoundException;
+    Set<RentalDTO> getRentals(Integer clientId) throws ClientNotFoundException;
+    Set<RentalDTO> getPastRentals(Integer clientId) throws ClientNotFoundException;
+    Set<RentalDTO> getUpcomingRentals(Integer clientId) throws ClientNotFoundException;
+    Set<RentalDTO> getOngoingRentals(Integer clientId) throws ClientNotFoundException;
+    boolean hasClientReviewedRealEstate(Integer clientId, Integer realEstateId) throws ClientNotFoundException, RealEstateNotFoundException;
+    Set<RealEstateDTO> getOwnedRealEstates(Integer clientId) throws ClientNotFoundException;
+    Set<RealEstateDTO> getRealEstatesForClient(Integer clientId) throws ClientNotFoundException;
+
+    CreateClientDTO updateClient (Integer id, CreateClientDTO clientDTO) throws ClientNotFoundException;
 
 }

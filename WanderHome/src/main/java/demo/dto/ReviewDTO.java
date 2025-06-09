@@ -1,9 +1,11 @@
 package demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import demo.entity.Client;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,8 +14,8 @@ import java.io.Serializable;
 @Getter
 public class ReviewDTO implements Serializable {
 
-    @JsonProperty("review_id")
-    private int reviewId;
+    @JsonProperty("id")
+    private int id;
 
     @JsonProperty("rating")
     private int rating;
@@ -21,5 +23,16 @@ public class ReviewDTO implements Serializable {
     @JsonProperty("comment")
     private String comment;
 
-    //TODO: client_id ; property_id ; created_at ??
+    @JsonProperty("client_name")
+    private String clientName;
+
+    @JsonProperty("date_added")
+    private LocalDate dateAdded;
+
+    @JsonProperty("client_id")
+    private int clientId;
+
+    @JsonProperty("real_estate_id")
+    private int realEstateId;
+
 }

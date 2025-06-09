@@ -13,8 +13,8 @@ import java.io.Serializable;
 //this is  dt transfer object
 public class CreateClientDTO implements Serializable {
 
-    @JsonProperty("client_id")
-    private int clientId;
+    @JsonProperty("id")
+    private int id;
 
     @JsonProperty("username")
     private String username;
@@ -35,6 +35,16 @@ public class CreateClientDTO implements Serializable {
     @JsonProperty("phone")
     private String phone;
 
-    //trebuie si timestamp urile de createdAt si updatedAt?
+    @JsonProperty("description")
+    private String description;
+
+    @JsonProperty("image_path")
+    private String image;
+
+    @JsonProperty("profile_status")
+    private String profileStatus;
+
+    @JsonProperty("role")
+    private String role;
 
 }
